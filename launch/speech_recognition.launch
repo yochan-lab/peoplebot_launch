@@ -1,0 +1,12 @@
+<launch>
+
+	<node pkg="pocketsphinx" name="recognizer" type="recognizer.py">
+		<param name="use_regex" value="True" />
+		<param name="mic_name" value=".+Kinect.+" />
+		<param name="lm" if="$(arg lm)" value="$(arg lm)" />
+	</node>
+
+	<node pkg="pocketsphinx" name="actions2" type="actions.py" args="run" output="screen" />
+
+	<node machine="PeopleBot" pkg="text2speech" name="text2speech" type="text2speech.py" />
+</launch>

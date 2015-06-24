@@ -1,0 +1,12 @@
+<launch>
+
+	<machine name="PeopleBot" address="robot.local" default="never" user="Yochan" password="yochan123" env-loader="/home/Yochan/PeopleBot.sh" timeout="60"/>
+
+	<include file="$(find peoplebot_launch)/launch/PeopleBot.launch" />
+	<include file="$(find peoplebot_2dnav)/launch/navigation.launch" />
+	<include file="$(find peoplebot_launch)/launch/server.launch" />
+	
+	<node pkg="rviz" name="rviz" type="rviz"/>
+
+	<include file="$(find peoplebot_launch)/launch/speech_recognition.launch" />	
+</launch>
