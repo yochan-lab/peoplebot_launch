@@ -1,11 +1,10 @@
 <launch>
 
-	<node machine="PeopleBot" pkg="pocketsphinx" name="recognizer" type="recognizer.py">
-		<param name="source" value="alsasrc device=hw:1,0" />
-		<param name="lm" value="$(arg lm)" />
+	<node machine="PeopleBot" pkg="speech2text" name="recognizer" type="speech2text.py">
+		<param name="device" value="alsa hw:1,0" />
 	</node>
 
-	<node pkg="pocketsphinx" name="actions2" type="actions.py" args="run" output="screen" />
+	<!--<node pkg="pocketsphinx" name="actions2" type="actions.py" args="run" output="screen" /> -->
 
 	<node machine="PeopleBot" pkg="text2speech" name="text2speech" type="text2speech.py" />
 </launch>
