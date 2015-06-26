@@ -2,6 +2,7 @@
 
 	<node machine="PeopleBot" pkg="speech2text" name="recognizer" type="speech2text.py">
 		<param name="device" value="alsa hw:1,0" />
+		<param name="silence" value="0 1 00:00:03.5 5%" />
 	</node>
 
 	<!--<node pkg="pocketsphinx" name="actions2" type="actions.py" args="run" output="screen" /> -->
