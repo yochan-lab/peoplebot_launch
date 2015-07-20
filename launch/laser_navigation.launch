@@ -1,0 +1,11 @@
+ <launch>
+        <!-- <node name="tf_broadcaster" pkg="robot_setup_tf" type="tf_broadcaster" /> -->
+
+        <node machine="PeopleBot" name="sicklms" pkg="sicktoolbox_wrapper" type="sicklms">
+                <remap from="scan" to="scan2" />
+		<param name="port" value="/dev/ttyS2" />
+                <param name="baud" value="38400" />
+                <param name="connect_delay" value="40" />
+        </node>
+	
+</launch>

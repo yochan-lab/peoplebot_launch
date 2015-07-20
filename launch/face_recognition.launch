@@ -1,9 +1,15 @@
 <launch>
+	<node name="convert_to_mono" pkg="image_proc" type="image_proc">
+		<remap from="image_raw" to="canon_camera" />
+		<remap from="image_mono" to="canon_mono" />
+	</node>
+
 	<node name="face_finder" pkg="face_finder" type="face_finder">
 		<param name="face_cascade" value="$(find face_finder)/lbpcascade_frontalface.xml" />
+		<param name="image_source" value="canon_mono" />
 	</node>
-	<arg name="face_database" unless="$(arg face_database)" value="~/faces.dat" />
-	<node name="face_recognizer" pkg="face_recognition" type="face_recognition">
+	<arg name="face_database" value="/home/yochan/faces.dat" />
+	<node name="face_recognizer" pkg="face_recognition" type="face_recognition" output="screen">
 		<param name="training_file" value="$(arg face_database)" />
 	</node>
 </launch>
