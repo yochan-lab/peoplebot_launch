@@ -1,13 +1,16 @@
 <launch>
-
-	<machine name="PeopleBot" address="robot.local" default="never" user="Yochan" password="yochan123" env-loader="/home/Yochan/PeopleBot.sh" timeout="60"/>
-
+	<machine name="PeopleBot" address="192.168.0.1" default="never" user="yochan" env-loader="/home/yochan/PeopleBot.sh" timeout="60"/>
+	<include file="$(find rosplan_planning_system)/launch/planning_system_knowledge.launch" />
 	<include file="$(find peoplebot_launch)/launch/PeopleBot.launch" />
 	<include file="$(find peoplebot_launch)/launch/cameras.launch" />
-	<include file="$(find peoplebot_2dnav)/launch/navigation.launch" />
+	<include file="$(find peoplebot_launch)/launch/face_recognition.launch" />
+	<include file="$(find peoplebot_launch)/launch/navigation.launch" />
 	<include file="$(find peoplebot_launch)/launch/server.launch" />
-	
-	<node pkg="rviz" name="rviz" type="rviz"/>
-
+	<include file="$(find peoplebot_launch)/launch/state_machine.launch" />
 	<include file="$(find peoplebot_launch)/launch/speech_recognition.launch" />	
+	
+	<node pkg="rviz" name="rviz" type="rviz">
+		<env name="DISPLAY" value=":0" />
+	</node>
+
 </launch>

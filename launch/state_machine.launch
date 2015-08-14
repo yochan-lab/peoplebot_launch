@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="location_provider" name="location_provider_node" type="location_provider_node.py" />
+	<node pkg="state_machine" name="roam_action_server" type="roam_action.py" />
+<!--	<node pkg="state_machine" name="interact_action_server" type="interact_action.py" output="screen" />-->
+	<node pkg="state_machine" name="state_machine_node" type="state_machine_node.py" output="screen"/>
+</launch>

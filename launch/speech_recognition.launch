@@ -1,11 +1,25 @@
 <launch>
+	<node machine="PeopleBot" pkg="speech2text" name="nl_recognizer" type="speech2text.py">
+		<param name="device" value="alsa dsnoop:CARD=GoMic,DEV=0" />
+		<param name="silence" value="0 1 00:00:02.0 5%" />
+	</node> 
 
-	<node machine="PeopleBot" pkg="speech2text" name="recognizer" type="speech2text.py">
-		<param name="device" value="alsa hw:1" />
-		<param name="silence" value="0 1 00:00:02.5 3%" />
+	<node machine="PeopleBot" pkg="tape_recorder" name="tape" type="tape_w_planner.py" output="screen">
+		<param name="rec_device" value="alsa dsnoop:CARD=GoMic,DEV=0" />
+		<param name="silence" value="0 1 00:00:04.0 6%" />
+	</node> 
+
+	<node machine="PeopleBot" pkg="speech2action" name="fsg_gen" type="spit_grammar.py" output="screen">
+		<param name="grammar_file" value="/home/yochan/grammar.fsg" />
 	</node>
+	<node machine="PeopleBot" pkg="pocketsphinx" name="recognizer" type="recognizer.py">
+		<param name="fsg" value="/home/yochan/grammar.fsg" />
+<!-- replace with ALSA for multiple listeners
+		<param name="mic_name" value="alsa_input.usb-Samson_Technologies_Samson_GoMic-00-GoMic.analog-stereo" />
+-->
+		<param name="source" value="alsasrc device=dsnoop:CARD=GoMic,DEV=0" />
+	</node>
+	<node pkg="speech2action" name="speech2action" type="actions.py" output="screen" />
 
-	<node pkg="speech2action" name="speech2action" type="actions.py" />
-
-	<node machine="PeopleBot" pkg="text2speech" name="text2speech" type="text2speech.py" />
+	<node machine="PeopleBot" pkg="text2speech" name="text2speech" type="text2speech_node.py" />
 </launch>

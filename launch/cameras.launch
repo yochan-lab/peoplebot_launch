@@ -1,13 +1,11 @@
 <launch>
 	<arg name="cam_name" value="canon_camera" />
-	<env name="GSCAM_CONFIG" value="v4l2src ! video/x-raw-yuv, width=320, height=240 ! deinterlace ! ffmpegcolorspace" />
+	<env name="GSCAM_CONFIG" value="v4l2src norm=ntsc ! video/x-raw-yuv, width=320, height=240 ! deinterlace ! ffmpegcolorspace" />
 	<node machine="PeopleBot" pkg="gscam" type="gscam" name="$(arg cam_name)">
 		<param name="camera_name" value="(arg cam_name)" />
 		<remap from="camera/image_raw" to="$(arg cam_name)" />
 	</node>
-
+	
+	<node pkg="tf" type="static_transform_publisher" name="kinect_base_link" args="0 1 0 0 0 1 /base_link /camera_link 100" />
 	<include file="$(find freenect_launch)/launch/freenect.launch" />
-	<node name="kinect_aux_1" pkg="kinect_aux" type="kinect_aux_node">
-		<param name="device_index" value="0" />
-	</node>
 </launch>

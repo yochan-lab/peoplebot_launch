@@ -4,9 +4,12 @@
 		<remap from="image_mono" to="canon_mono" />
 	</node>
 
+	<node name="names" pkg="name_provider" type="name_provider_node.py" output="screen" />
+
 	<node name="face_finder" pkg="face_finder" type="face_finder">
 		<param name="face_cascade" value="$(find face_finder)/lbpcascade_frontalface.xml" />
 		<param name="image_source" value="canon_mono" />
+		<env name="DISPLAY" value=":0" />
 	</node>
 	<arg name="face_database" value="/home/yochan/faces.dat" />
 	<node name="face_recognizer" pkg="face_recognition" type="face_recognition" output="screen">
